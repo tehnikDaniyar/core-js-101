@@ -224,18 +224,20 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  // return str.split('').map((c) => {
-  //   if (c.charCodeAt() >= 97 && c.charCodeAt() <= 109) {
-  //     return String.fromCharCode(c.charCodeAt() + 13);
-  //   } if (c.charCodeAt() > 109) {
-  //     return String.fromCharCode(97 + (13 - (123 - c.charCodeAt())));
-  //   } if (c.charCodeAt >= 65 && c.charCodeAt <= 77) {
-  //     return String.fromCharCode(c.charCodeAt() + 13);
-  //   } if (c.charCodeAt() > 77 && c.charCodeAt <= 90) {
-  //     return String.fromCharCode(65 + (13 - (91 - c.charCodeAt())));
-  //   }
-  // }).join('');
-  return str;
+  return str.split('').map((c) => {
+    const charCode = c.charCodeAt();
+    if (charCode >= 97 && charCode <= 109) {
+      return String.fromCharCode(charCode + 13);
+    } if (charCode > 109 && charCode <= 122) {
+      return String.fromCharCode(charCode - 13);
+    }
+    if (charCode >= 65 && charCode <= 77) {
+      return String.fromCharCode(charCode + 13);
+    } if (charCode > 77 && charCode <= 90) {
+      return String.fromCharCode(charCode - 13);
+    }
+    return c;
+  }).join('');
 }
 
 /**
@@ -252,7 +254,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return typeof value === 'object' ? !!value[0] : true;
+  return typeof value === 'string' ? true : value instanceof String;
 }
 
 
@@ -280,8 +282,13 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  return [
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠']
+    .indexOf(value);
 }
 
 
