@@ -417,8 +417,12 @@ function toStringList(arr) {
  *    ]
  */
 function sortCitiesArray(arr) {
-  // throw new Error('Not implemented');
-  return arr.sort((obj1, obj2) => obj1.country[0] + obj2.country[0]);
+  return arr.sort((a, b) => {
+    if (a.country === b.country) {
+      return a.city.localeCompare(b.city);
+    }
+    return a.country.localeCompare(b.country);
+  });
 }
 
 /**
@@ -439,8 +443,9 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array.from({ length: n }, (__, rowIndex) => Array.from({ length: n },
+    (_, colIndex) => (rowIndex === colIndex ? 1 : 0)));
 }
 
 /**
