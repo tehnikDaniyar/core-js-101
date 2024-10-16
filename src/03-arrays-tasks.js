@@ -220,21 +220,27 @@ function toArrayOfSquares(arr) {
 
 
 /**
- * Transforms the numeric array to the according moving sum array:
- *     f[n] = x[0] + x[1] + x[2] +...+ x[n]
- *  or f[n] = f[n-1] + x[n]
- *
- * @param {array} arr
- * @return {array}
- *
- * Example :
- *   [ 1, 1, 1, 1, 1 ]        => [ 1, 2, 3, 4, 5 ]
- *   [ 10, -10, 10, -10, 10 ] => [ 10, 0, 10, 0, 10 ]
- *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
- *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
+    * Transforms the numeric array to the according moving sum array:
+    *     f[n] = x[0] + x[1] + x[2] +...+ x[n]
+    *  or f[n] = f[n-1] + x[n]
+    *
+    * @param {array} arr
+    * @return {array}
+    *
+    * Example :
+    *   [ 1, 1, 1, 1, 1 ]        => [ 1, 2, 3, 4, 5 ]
+    *   [ 10, -10, 10, -10, 10 ] => [ 10, 0, 10, 0, 10 ]
+    *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
+    *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  const result = [];
+  arr.reduce((acc, current) => {
+    const newAcc = acc + current;
+    result.push(newAcc);
+    return newAcc;
+  }, 0);
+  return result;
 }
 
 /**
@@ -248,8 +254,8 @@ function getMovingSum(/* arr */) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  return arr.filter((item, index) => (index + 1) % 2 === 0);
 }
 
 
@@ -267,8 +273,8 @@ function getSecondItems(/* arr */) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.reduce((acc, item, index) => [...acc, ...new Array(index + 1).fill(item)], []);
 }
 
 
@@ -285,8 +291,8 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  return arr.sort((a, b) => b - a).slice(0, 3);
 }
 
 
@@ -303,8 +309,8 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  return arr.filter((item) => typeof item === 'number' && item > 0).length;
 }
 
 /**
@@ -320,8 +326,12 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen',
+    'eighteen', 'nineteen', 'twenty'];
+
+  return arr.sort((a, b) => words.indexOf(a) - words.indexOf(b));
 }
 
 /**
@@ -336,8 +346,8 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  return arr.reduce((acc, num) => acc + num, 0);
 }
 
 /**
@@ -352,8 +362,8 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.reduce((acc, item) => (!item ? acc + 1 : acc), 0);
 }
 
 /**
